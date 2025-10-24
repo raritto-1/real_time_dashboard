@@ -1,0 +1,55 @@
+core/
+Contains project-wide settings, configurations, and utilities.
+
+Common helper functions, middleware, and base classes.
+
+Centralized error handling and logging.
+
+Shared API response models or serializers.
+
+Initialization of Redis connections and WebSocket configurations.
+
+users/
+Manages user authentication and profiles.
+
+User registration, login, and role-based access control.
+
+Profile management (e.g., user preferences, avatars).
+
+Password management and JWT or OAuth token handling.
+
+User session tracking possibly cached in Redis.
+
+tasks/
+Handles project tasks and workflows.
+
+Task creation, assignment, status updates, and deadlines.
+
+Task dependencies and progress tracking.
+
+CRUD APIs for tasks and projects.
+
+Notifications to users about task changes via WebSocket.
+
+chat/
+Implements real-time communication features.
+
+WebSocket handling for instant messaging between users.
+
+Message history stored in a database or Redis streams.
+
+Notifications or presence indicators for online users.
+
+Redis Pub/Sub to broadcast chat events to connected clients.
+
+analytics/
+Collects and processes dashboard metrics and analytics.
+
+Real-time data aggregation and performance tracking.
+
+APIs for retrieving live analytics for UI dashboards.
+
+Uses Redis caching and streaming to push metric updates.
+
+Generates reports or charts for user insights.
+
