@@ -26,7 +26,6 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "core",
-    'chat',
     'analytics',
     'tasks',
     'users'
@@ -62,18 +61,35 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "real_time_dashboard.wsgi.application"
 
-# PostgreSQL Database
+# PostgreSQL Database (restored)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',        
-        'USER': 'postgres',        
-        'PASSWORD': '123456789',    
-        'HOST': 'localhost',
-        'PORT': '5432',            
+        'NAME': env('POSTGRES_DB', default='postgres'),
+        'USER': env('POSTGRES_USER', default='postgres'),
+        'PASSWORD': env('POSTGRES_PASSWORD', default='123456789'),
+        'HOST': env('POSTGRES_HOST', default='localhost'),
+        'PORT': env('POSTGRES_PORT', default='5432'),
     }
 }
 
+# Cache: use Redis if REDIS_URL is set, else in-memory for resilience
+REDIS_URL = env('REDIS_URL', default='')
+if REDIS_URL:
+    CACHES = {
+        "default": {
+            "BACKEND": "django_redis.cache.RedisCache",
+            "LOCATION": REDIS_URL,
+            "OPTIONS": {"CLIENT_CLASS": "django_redis.client.DefaultClient"},
+        }
+    }
+else:
+    CACHES = {
+        "default": {
+            "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+            "LOCATION": "unique-dev-cache"
+        }
+    }
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [

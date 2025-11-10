@@ -14,7 +14,7 @@ def user_login(request):
         user = authenticate(request, username=username, password=password) 
 
         if user is not None:
-            # Successfully authenticated, log the user in
+            
             login(request, user)
             return redirect('profile')  # Redirect after successful login
         else:
